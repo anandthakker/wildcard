@@ -25,11 +25,13 @@ var server = http.createServer(function(req, res) {
   
   if(target.host === req.headers.host || target.host === 'anand.codes' && data) {
     var card = {
-      card_type:"",
+      card_type:"article",
       web_url: target.href,
       article: {
         title: data.metadata && data.metadata.title || target.path,
-        html_content: marked(data.content)
+        html_content: marked(data.content),
+        author: "Anand Thakker",
+        publication_date: data.metadata && data.metadata.date || undefined
       }
     }
     
