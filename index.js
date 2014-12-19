@@ -14,8 +14,6 @@ var site = require('./site.json').reduce(function(site, page) {
 
 debug(Object.keys(site))
 
-// var stat = ecstatic({root: __dirname + '/public',gzip: true});
-
 var server = http.createServer(function(req, res) {
   debug(req.method, req.url);
 
@@ -29,12 +27,19 @@ var server = http.createServer(function(req, res) {
       web_url: target.href,
       article: {
         title: data.metadata && data.metadata.title || target.path,
-        html_content: marked(data.content),
+        html_content: marked(data.content) || '',
         author: "Anand Thakker",
-        publication_date: data.metadata && data.metadata.date || undefined
+        abstract_content: (data.metadata.description || data.content).trim().slice(0, 500)
       }
     }
     
+    if(card.article.html_content.trim().length === 0)
+      card.article.html_content = '<p>For more, go to <a href="http://anand.codes">anand.codes</a>.</p>'
+    if(card.article.abstract_content.trim().length === 0)
+      card.article.abstract_content = "From http://anand.codes, the personal website of Anand Thakker."
+    if(data.metadata.date)
+      card.article.publication_date = data.metadata.date;
+
     res.end(JSON.stringify(card));
   }
   else {
