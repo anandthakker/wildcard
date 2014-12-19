@@ -1,0 +1,15 @@
+{
+  "name": "wildcard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anand Thakker <vestibule@anandthakker.net> (http://anandthakker.net)",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^2.1.0",
+    "marked": "^0.3.2"
+  }
+}
